@@ -11,6 +11,8 @@ class SimpleTokenizerV1:
         preprocessed = [
             item.strip() for item in preprocessed if item.strip() 
         ]
+        preprocessed = [item if item in self.str_to_int 
+                        else "<UNK>" for item in preprocessed]
         ids = [self.str_to_int[s] for s in preprocessed]
         return ids
     
@@ -24,10 +26,10 @@ class SimpleTokenizerV1:
 
 vocab = {  
       "The": 1, "quick": 2, "brown": 3, "fox": 4, "jumps": 5,
-    "over": 6, "the": 7, "lazy": 8, "dog": 9, ".": 10,
-    "<UNK>": 0  # Unknown token
+    "over": 6, "the": 7, "lazy": 8, "dog": 9, ".": 10, "<UNK>": 0
  } 
 tokenizer = SimpleTokenizerV1(vocab)
-text = """The quick brown fox jumps over the lazy dog."""
+text = """"hello quick brown fox jumps over the lazy dog."""
 ids = tokenizer.encode(text)
 print(ids)
+print(tokenizer.decode(ids))
